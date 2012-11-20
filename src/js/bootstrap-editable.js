@@ -612,6 +612,13 @@
                     return;
                 }
 
+                        if (typeof this.settings.source === 'function') {
+                            this.settings.sourceFunction = this.settings.source;
+                        }
+                        if (typeof this.settings.sourceFunction === "function") {
+                            this.settings.source = this.settings.sourceFunction.call(this);
+                        }
+
                 if (typeof this.settings.source === 'string') {
                     var cacheID = this.settings.source + '-' + this.name, cache;
 
