@@ -5,7 +5,7 @@
         var type, typeDefaults, doAutotext = false, valueSetByText = false;
         this.$element = $(element);
 
-        //if exists 'placement' or 'title' options, copy them to data attributes to aplly for popover
+        //if exists 'placement' or 'title' options, copy them to data attributes to apply for popover
         if (options && options.placement && !this.$element.data('placement')) {
             this.$element.attr('data-placement', options.placement);
         }
@@ -143,6 +143,7 @@
                 this.$element.popover({
                     trigger  :'manual',
                     placement:'top',
+                    html: true,
                     content  :this.settings.loading
                 });
 
