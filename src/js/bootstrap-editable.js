@@ -251,7 +251,8 @@
 
                 //set new value and text
                 this.value = value;
-                this.settings.setTextByValue.call(this);
+                if (this.settings.autotext != 'never')
+                    this.settings.setTextByValue.call(this);
 
                 //to show that value modified but not saved
                 if (isAjax) {
