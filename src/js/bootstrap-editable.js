@@ -538,7 +538,8 @@
         value:null, //real value, not shown. Especially usefull for select
         emptytext:'Empty', //text shown on empty element
         params:null, //additional params to submit
-        send:'auto', // strategy for sending data on server: 'always', 'never', 'auto' (default). 'auto' = 'ifpk' (deprecated)
+        send: 'auto', // strategy for sending data on server: 'always', 'never', 'auto' (default). 'auto' = 'ifpk' (deprecated)
+        sendMethod: null, // if set to a function this will be called instead of using the built in ajax sending
         autotext:'auto', //can be auto|never|always. Useful for select element: if 'auto' -> element text will be automatically set by provided value and source (in case source is object so no extra request will be performed).
         enablefocus:false, //wether to return focus on link after popover is closed. It's more functional, but focused links may look not pretty
         formTemplate:'<form class="form-inline" autocomplete="off">' + 
