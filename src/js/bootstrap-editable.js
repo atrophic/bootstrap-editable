@@ -36,23 +36,19 @@
 
         // determine if we're knockout powered
         if (typeof ko !== 'undefined' && ko !== null) { // knockout available
-            if (typeof this.settings.koObservable !== 'undefined' && this.settings.koObservable !== null && ko.isObservable(this.settings.koObservable)) {
+            var koObservableData = this.$element.data('koObservable');
+            if (typeof koObservableData !== "undefined" && koObservableData != null && ko.isObservable(koObservableData)) {
+                this.isKnockoutPowered = true;
+                this.koObservable = koObservableData;
+            }
+            else if (typeof this.settings.koObservable !== 'undefined' && this.settings.koObservable !== null && ko.isObservable(this.settings.koObservable)) {
                 this.isKnockoutPowered = true;
                 this.koObservable = this.settings.koObservable;
             }
         }
         this.isKnockoutPowered = this.koObservable != null;
 
-        if (this.isKnockoutPowered) {
-            // set up the custom binding for ko
-            if (typeof ko.bindingHandlers.koObservable === 'undefined') {
-                ko.bindingHandlers.koObservable = {
-                    init: function (domElement, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-                        return $(domElement).data('koObservable', valueAccessor());
-                    }
-                };
-            }
-        } else {
+        if (!this.isKnockoutPowered) {
             //set value from settings or by element text
             if (this.settings.value === undefined || this.settings.value === null) {
                 this.settings.setValueByText.call(this);
@@ -964,6 +960,15 @@
             }
         }
         return objTo;
+    }
+
+    // if knockout is available, set up the custom binding for koObservable
+    if (typeof ko !== 'undefined' && ko !== null && typeof ko.bindingHandlers.koObservable === 'undefined') { 
+        ko.bindingHandlers.koObservable = {
+            init: function (domElement, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+                return $(domElement).data('koObservable', valueAccessor());
+            }
+        };
     }
 
 } (window.jQuery));
