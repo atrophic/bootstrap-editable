@@ -43,8 +43,16 @@
         }
         this.isKnockoutPowered = this.koObservable != null;
 
-
-        if (!this.isKnockoutPowered) {
+        if (this.isKnockoutPowered) {
+            // set up the custom binding for ko
+            if (typeof ko.bindingHandlers.koObservable === 'undefined') {
+                ko.bindingHandlers.koObservable = {
+                    init: function (domElement, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+                        return $(domElement).data('koObservable', valueAccessor());
+                    }
+                };
+            }
+        } else {
             //set value from settings or by element text
             if (this.settings.value === undefined || this.settings.value === null) {
                 this.settings.setValueByText.call(this);
